@@ -84,13 +84,6 @@ html, body {
   padding-bottom: 10px;
 }
 
-/* “固定中に下の内容が透ける”対策（好みで） */
-.tabs::after {
-  content: "";
-  display: block;
-  height: 8px;
-}
-
 /* Form sections */
 .form-section {
     margin-top: 1rem;
