@@ -595,14 +595,35 @@ function setDefaultStatsRangeLast7Days() {
       resultMemo: ""
     };
 
-    // update or insert
-    const idx = records.findIndex((r) => r.id === base.id);
-    if (idx >= 0) {
-      records[idx] = migrateRecord({ ...records[idx], ...base });
-    } else {
-      records.unshift(migrateRecord(base));
+    // update
+    const old = records[idx];
+
+    // いったんマージ（entry側の変更を反映）
+    let merged = migrateRecord({ ...old, ...base });
+
+    // 決済済みデータは entry保存で消さない（保護）
+    if (old.hasResult) {
+      const protectedKeys = [
+        "hasResult",
+        "datetimeExit",
+        "exitPrice",
+        "highDuringTrade",
+        "lowDuringTrade",
+        "profit",
+        "resultMemo",
+        "directionTaken",
+      ];
+
+      for (const k of protectedKeys) {
+        merged[k] = old[k];
+      }
     }
 
+    // createdAtは保持（念のため）
+    merged.createdAt = old.createdAt;
+
+    records[idx] = merged;
+    
     saveRecords();
     updateExitSelect();
     renderStats();
