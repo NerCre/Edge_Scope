@@ -145,17 +145,18 @@
     out.cutLossPrice = out.cutLossPrice ?? null;
 
     // Indicators
-    out.prevWave = out.prevWave || "HH";
-    out.trend_5_20_40 = out.trend_5_20_40 || "Stage3";
-    out.price_vs_ema200 = out.price_vs_ema200 || "above";
-    out.ema_band_color = out.ema_band_color || "neutral";
-    out.zone = out.zone || "pivot";
-    out.cmf_sign = out.cmf_sign || "near_zero";
-    out.cmf_sma_dir = out.cmf_sma_dir || "flat";
-    out.macd_state = out.macd_state || "neutral";
-    out.roc_sign = out.roc_sign || "near_zero";
-    out.roc_sma_dir = out.roc_sma_dir || "flat";
-    out.rsi_zone = out.rsi_zone || "around50";
+    out.waveCount = out.waveCount ?? "";
+    out.dowShape  = out.dowShape  ?? "";
+    out.trend_5_20_40 = out.trend_5_20_40 ?? "";
+    out.price_vs_ema200 = out.price_vs_ema200 ?? "";
+    out.ema_band_color = out.ema_band_color ?? "";
+    out.zone = out.zone ?? "";
+    out.cmf_sign = out.cmf_sign ?? "";
+    out.cmf_sma_dir = out.cmf_sma_dir ?? "";
+    out.macd_state = out.macd_state ?? "";
+    out.roc_sign = out.roc_sign ?? "";
+    out.roc_sma_dir = out.roc_sma_dir ?? "";
+    out.rsi_zone = out.rsi_zone ?? "";
 
     // Judge thresholds
     out.minWinRate = out.minWinRate ?? 30;
@@ -229,7 +230,8 @@
       plannedLimitPrice: safeNum($("#entry-LimitPrice").value),
       cutLossPrice: safeNum($("#entry-LossPrice").value),
 
-      prevWave: $("#ind-prevWave").value,
+      waveCount: $("#ind-waveCount").value,
+      dowShape: $("#ind-dowShape").value,
       trend_5_20_40: $("#ind-trend_5_20_40").value,
       price_vs_ema200: $("#ind-price_vs_ema200").value,
       ema_band_color: $("#ind-ema_band_color").value,
@@ -361,7 +363,8 @@
    *  --------------------------*/
   function isSameFeature(r, current) {
     const keys = [
-      "prevWave",
+      "waveCount",
+      "dowShape",
       "trend_5_20_40",
       "price_vs_ema200",
       "ema_band_color",
@@ -373,11 +376,19 @@
       "roc_sma_dir",
       "rsi_zone"
     ];
+
+    let denom = 0;
     let match = 0;
+    
     for (const k of keys) {
-      if ((r[k] ?? null) === (current[k] ?? null)) match++;
+      const a = current[k];
+      if (a == null || a === "") continue;
+      denom++;
+
+      const b = r[k] ?? "";
+      if (b === a) match++;
     }
-    return match / keys.length;
+    return denom ? (match / denom) : 0;
   }
 
   function judge(current) {
@@ -533,7 +544,8 @@
       cutLossPrice: entry.cutLossPrice,
 
       // indicators
-      prevWave: entry.prevWave,
+      waveCount: entry.waveCount,
+      dowShape: entry.dowShape,
       trend_5_20_40: entry.trend_5_20_40,
       price_vs_ema200: entry.price_vs_ema200,
       ema_band_color: entry.ema_band_color,
@@ -934,17 +946,18 @@
     $("#entry-LimitPrice").value = r.plannedLimitPrice ?? "";
     $("#entry-LossPrice").value = r.cutLossPrice ?? "";
 
-    $("#ind-prevWave").value = r.prevWave || "HH";
-    $("#ind-trend_5_20_40").value = r.trend_5_20_40 || "Stage3";
-    $("#ind-price_vs_ema200").value = r.price_vs_ema200 || "above";
-    $("#ind-ema_band_color").value = r.ema_band_color || "neutral";
-    $("#ind-atr_zone").value = r.zone || "pivot";
-    $("#ind-cmf_sign").value = r.cmf_sign || "near_zero";
-    $("#ind-cmf_sma").value = r.cmf_sma_dir || "flat";
-    $("#ind-MACD").value = r.macd_state || "neutral";
-    $("#ind-roc_sign").value = r.roc_sign || "near_zero";
-    $("#ind-roc_sma").value = r.roc_sma_dir || "flat";
-    $("#ind-RSI").value = r.rsi_zone || "around50";
+    $("#ind-waveCount").value = r.waveCount || "";
+    $("#ind-dowShape").value = r.dowShape || "";
+    $("#ind-trend_5_20_40").value = r.trend_5_20_40 || "";
+    $("#ind-price_vs_ema200").value = r.price_vs_ema200 || "";
+    $("#ind-ema_band_color").value = r.ema_band_color || "";
+    $("#ind-atr_zone").value = r.zone || "";
+    $("#ind-cmf_sign").value = r.cmf_sign || "";
+    $("#ind-cmf_sma").value = r.cmf_sma_dir || "";
+    $("#ind-MACD").value = r.macd_state || "";
+    $("#ind-roc_sign").value = r.roc_sign || "";
+    $("#ind-roc_sma").value = r.roc_sma_dir || "";
+    $("#ind-RSI").value = r.rsi_zone || "";
 
     $("#entry-marketMemo").value = r.marketMemo || "";
     $("#entry-notionUrl").value = r.notionUrl || "";
@@ -1169,7 +1182,7 @@
       "id","createdAt","updatedAt",
       "datetimeEntry","symbol","timeframe","tradeType","directionPlanned",
       "entryPrice","size","feePerUnit","plannedStopPrice","plannedLimitPrice","cutLossPrice",
-      "prevWave","trend_5_20_40","price_vs_ema200","ema_band_color","zone",
+      "waveCount","dowShape","trend_5_20_40","price_vs_ema200","ema_band_color","zone",
       "cmf_sign","cmf_sma_dir","macd_state","roc_sign","roc_sma_dir","rsi_zone",
       "minWinRate",
       "recommendation","expectedMove","expectedMoveUnit","confidence","winRate","avgProfit","avgLoss","pseudoCaseCount",
