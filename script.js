@@ -17,22 +17,6 @@
   const elStatsSummary = $("#stats-summary");
   const elStatsTable = $("#stats-table");
 
-  const REQUIRED_SELECT_IDS = [
-  "ind-waveCount",
-  "ind-dowShape",
-  "ind-trend",
-  "ind-price_vs_ema200",
-  "ind-ema_band_color",
-  "ind-zone",
-  "ind-cmf_sign",
-  "ind-cmf_sma_dir",
-  "ind-macd_state",
-  "ind-roc_sign",
-  "ind-roc_sma_dir",
-  "ind-rsi_zone"
-];
-
-
   /** ---------------------------
    *  State
    *  --------------------------*/
@@ -215,6 +199,44 @@
   /** ---------------------------
    *  Entry form
    *  --------------------------*/
+  const REQUIRED_SELECT_IDS = [
+  "ind-waveCount",
+  "ind-dowShape",
+  "ind-trend",
+  "ind-price_vs_ema200",
+  "ind-ema_band_color",
+  "ind-zone",
+  "ind-cmf_sign",
+  "ind-cmf_sma_dir",
+  "ind-macd_state",
+  "ind-roc_sign",
+  "ind-roc_sma_dir",
+  "ind-rsi_zone"
+];
+  
+  function validateRequiredSelects() {
+  const missing = [];
+  for (const id of REQUIRED_SELECT_IDS) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (el.value === "") missing.push(id);
+  }
+  if (missing.length) {
+    alert("未選択の項目があります。「選択してください」をすべて埋めてから登録してください。");
+    // 見つけやすいように最初の未選択へフォーカス
+    const first = document.getElementById(missing[0]);
+    if (first) first.focus();
+    return false;
+  }
+  return true;
+  }
+
+  function onSaveEntry() {
+  if (!validateRequiredSelects()) return;
+
+  // ここから先で判定→保存
+}
+
   function getEntryForm() {
     return {
       datetimeEntry: $("#entry-datetime").value || null,
@@ -257,29 +279,6 @@
     if (entry.feePerUnit === null) return "1枚あたりの手数料は必須です。";
     return null;
   }
-
-  function validateRequiredSelects() {
-  const missing = [];
-  for (const id of REQUIRED_SELECT_IDS) {
-    const el = document.getElementById(id);
-    if (!el) continue;
-    if (el.value === "") missing.push(id);
-  }
-  if (missing.length) {
-    alert("未選択の項目があります。「選択してください」をすべて埋めてから登録してください。");
-    // 見つけやすいように最初の未選択へフォーカス
-    const first = document.getElementById(missing[0]);
-    if (first) first.focus();
-    return false;
-  }
-  return true;
-  }
-
-  function onSaveEntry() {
-  if (!validateRequiredSelects()) return;
-
-  // ここから先で判定→保存
-}
 
   function clearEntryForm() {
     editingEntryId = null;
