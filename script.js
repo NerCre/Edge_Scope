@@ -78,14 +78,27 @@
     return Math.max(min, Math.min(max, n));
   }
 
-  function parseISODateOnly(isoOrDateLocal) {
-    if (!isoOrDateLocal) return null;
-    // if already date-only
-    if (/^\d{4}-\d{2}-\d{2}$/.test(isoOrDateLocal)) return isoOrDateLocal;
-    // datetime-local "YYYY-MM-DDTHH:mm"
-    const m = String(isoOrDateLocal).match(/^(\d{4}-\d{2}-\d{2})/);
-    return m ? m[1] : null;
+  function isoDateLocal(date) {
+  // yyyy-mm-dd（date input用）
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function setDefaultStatsRangeLast7Days() {
+  const end = new Date();               // 今日
+  const start = new Date();
+  start.setDate(end.getDate() - 7);     // 7日前
+
+  const elStart = document.getElementById("filter-date-start");
+  const elEnd   = document.getElementById("filter-date-end");
+
+  if (elStart && elEnd) {
+    elStart.value = isoDateLocal(start);
+    elEnd.value   = isoDateLocal(end);
   }
+}
 
   /** ---------------------------
    *  Storage
@@ -836,6 +849,14 @@
     });
   }
 
+  function clearDateRangeFilter() {
+    const elStart = document.getElementById("filter-date-start");
+    const elEnd   = document.getElementById("filter-date-end");
+    if (elStart) elStart.value = "";
+    if (elEnd) elEnd.value = "";
+    renderStats();
+  }
+  
   function renderStatsSummary(list) {
     const closed = list.filter((r) => r.hasResult && typeof r.profit === "number" && Number.isFinite(r.profit));
     const wins = closed.filter((r) => r.profit > 0);
@@ -1280,4 +1301,6 @@
   }
 
   document.addEventListener("DOMContentLoaded", init);
+  setDefaultStatsRangeLast7Days();
+  renderStats();
 })();
