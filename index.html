@@ -102,9 +102,24 @@
         <!-- Column 2: インジケーター -->
         <div class="form-column">
           <h3>インジケーター</h3>
-
-          <label>直前の波
+          
+          <label>波動ライン
+            <select id="ind-waveCount">
+              <option value="" selected>選択してください</option>
+              <option value="W1">第1波</option>
+              <option value="W2">第2波</option>
+              <option value="W3">第3波</option>
+              <option value="W4">第4波</option>
+              <option value="W5">第5波</option>
+              <option value="W6">第6波</option>
+              <option value="W7">第7波～</option>
+              <option value="unknown">非成立</option>
+            </select>
+          </label>
+          
+          <label>ダウ形状
             <select id="ind-prevWave">
+              <option value="" selected>選択してください</option>
               <option value="HH">HH</option>
               <option value="HL">HL</option>
               <option value="LL">LL</option>
@@ -112,8 +127,9 @@
             </select>
           </label>
 
-          <label>EMA5/20/40トレンド
+          <label>大循環分析
             <select id="ind-trend_5_20_40">
+              <option value="" selected>選択してください</option>
               <option value="Stage1">Stage1</option>
               <option value="Stage2">Stage2</option>
               <option value="Stage3">Stage3</option>
@@ -125,23 +141,15 @@
 
           <label>価格 vs EMA200
             <select id="ind-price_vs_ema200">
+              <option value="" selected>選択してください</option>
               <option value="above">上</option>
               <option value="below">下</option>
             </select>
           </label>
 
-          <label>EMA Band
-            <select id="ind-ema_band_color">
-              <option value="dark_green">濃緑</option>
-              <option value="light_green">薄緑</option>
-              <option value="neutral">0付近</option>
-              <option value="light_red">薄赤</option>
-              <option value="dark_red">濃赤</option>
-            </select>
-          </label>
-
-          <label>Pivot×ATRゾーン
+          <label>ATR指標
             <select id="ind-atr_zone">
+              <option value="" selected>選択してください</option>
               <option value="pivot">pivot</option>
               <option value="pivot_R1">pivot〜R1</option>
               <option value="R1">R1</option>
@@ -160,50 +168,66 @@
             </select>
           </label>
 
-          <label>CMF圏域
+          <label>EMA Band
+            <select id="ind-ema_band_color">
+              <option value="" selected>選択してください</option>
+              <option value="dark_green">濃緑（強い上昇）</option>
+              <option value="light_green">薄緑（弱い上昇）</option>
+              <option value="neutral">0付近</option>
+              <option value="light_red">薄赤（弱い下降）</option>
+              <option value="dark_red">濃赤（強い下降）</option>
+            </select>
+          </label>
+
+          <label>CMF実数
             <select id="ind-cmf_sign">
+              <option value="" selected>選択してください</option>
               <option value="positive">プラス圏</option>
-              <option value="near_zero">ゼロ付近</option>
+              <option value="near_zero">0付近</option>
               <option value="negative">マイナス圏</option>
             </select>
           </label>
 
-          <label>CMF SMA方向
+          <label>CMF SMA hist
             <select id="ind-cmf_sma">
-              <option value="gc">GC</option>
+              <option value="" selected>選択してください</option>
               <option value="up">上昇</option>
+              <option value="gc">GoldCross</option>
               <option value="flat">横ばい</option>
+              <option value="dc">DeadCross</option>
               <option value="down">下降</option>
-              <option value="dc">DC</option>
             </select>
           </label>
 
           <label>MACD
             <select id="ind-MACD">
-              <option value="post_gc">GC後</option>
-              <option value="post_dc">DC後</option>
-              <option value="neutral">ニュートラル</option>
+              <option value="post_gc">GoldCross後</option>
+              <option value="neutral">横ばい</option>
+              <option value="post_dc">DeadCross後</option>
             </select>
           </label>
 
-          <label>ROC圏域
+          <label>ROC実数
             <select id="ind-roc_sign">
+              <option value="" selected>選択してください</option>
               <option value="positive">プラス圏</option>
-              <option value="near_zero">ゼロ付近</option>
+              <option value="near_zero">0付近</option>
               <option value="negative">マイナス圏</option>
             </select>
           </label>
 
-          <label>ROC SMA方向
+          <label>ROC SMA hist
             <select id="ind-roc_sma">
+              <option value="" selected>選択してください</option>
               <option value="up">上昇</option>
               <option value="flat">横ばい</option>
               <option value="down">下降</option>
             </select>
           </label>
 
-          <label>RSIゾーン
+          <label>RSI
             <select id="ind-RSI">
+              <option value="" selected>選択してください</option>
               <option value="over70">70〜</option>
               <option value="50to70">50〜70</option>
               <option value="around50">50付近</option>
