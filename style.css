@@ -33,6 +33,15 @@ html, body {
     font-weight: normal;
 }
 
+/* タイトルも固定したいなら */
+.app-title {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #05070a;
+  padding-top: 10px;
+}
+
 /* Tabs navigation */
 .tabs {
     display: flex;
@@ -64,6 +73,22 @@ html, body {
 }
 .tab-content.active {
     display: block;
+}
+
+/* タブ行を固定 */
+.tabs {
+  position: sticky;
+  top: 64px;           /* タイトル固定するならその高さ分。固定しないなら top:0; */
+  z-index: 60;
+  background: #05070a;
+  padding-bottom: 10px;
+}
+
+/* “固定中に下の内容が透ける”対策（好みで） */
+.tabs::after {
+  content: "";
+  display: block;
+  height: 8px;
 }
 
 /* Form sections */
