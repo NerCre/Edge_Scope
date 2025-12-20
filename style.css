@@ -428,6 +428,3 @@ tbody tr:nth-child(odd) {
 
 .muted { opacity: 0.75; font-size: 0.85em; }
 
-#stats-filter-card {
-  margin-bottom: 1rem;
-}
