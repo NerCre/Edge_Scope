@@ -470,6 +470,15 @@ function getEntryForm() {
     clearMsg();
   }
 
+  function updateEntryEditUI() {
+    const isEditing = !!editingEntryId;
+    const badge = $("#entry-edit-badge");
+    const saveBtn = $("#btn-save-entry");
+
+    if (badge) badge.hidden = !isEditing;
+    if (saveBtn) saveBtn.textContent = isEditing ? "更新して保存" : "判定してエントリーを保存";
+  }
+
   function renderJudge(result, symbol, timeframe) {
     if (!elJudgeOutput) return;
 
@@ -794,10 +803,12 @@ function onJudge(shouldSave) {
 
   if (wasEditing) {
     editingEntryId = id;
+    updateEntryEditUI();
     $("#entry-form").reset();
     showToast("更新しました。", "success");
   } else {
     editingEntryId = null;
+    updateEntryEditUI();
     $("#entry-form").reset();
     showToast("保存しました。", "success");
   }
@@ -1216,6 +1227,7 @@ function clearDateRangeFilter() {
     if (!r) return;
 
     editingEntryId = r.id;
+    updateEntryEditUI();
 
     $("#entry-datetime").value = r.datetimeEntry || "";
     $("#entry-symbol").value = r.symbol || "nk225mc";
@@ -1602,6 +1614,7 @@ function init() {
   safeRenderStats();
 
   clearEntryForm();
+  updateEntryEditUI();
 }
 
 
