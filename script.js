@@ -452,6 +452,7 @@ function getEntryForm() {
 
   function clearEntryForm() {
     editingEntryId = null;
+    updateEntryEditUI();
     $("#entry-form").reset();
 
     // restore defaults
