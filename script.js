@@ -468,6 +468,9 @@ function getEntryForm() {
     // clear judge UI
     resetJudgeOutput();
     clearMsg();
+
+    // 2025-12-23　追加
+    updateEntryEditUI();
   }
 
   // 2025-12-23　追加
@@ -806,6 +809,7 @@ function onJudge(shouldSave) {
     // 2025-12-23　変更
   const id = editingEntryId || uuid();
   editingEntryId = id;
+  updateEntryEditUI();
   showToast(wasEditing ? "更新しました。" : "保存しました。", "success");
   if (elEntryError) elEntryError.textContent = ""; 
 }
@@ -1222,6 +1226,8 @@ function clearDateRangeFilter() {
     if (!r) return;
 
     editingEntryId = r.id;
+    // 2025-12-23　追加
+    updateEntryEditUI();
 
     $("#entry-datetime").value = r.datetimeEntry || "";
     $("#entry-symbol").value = r.symbol || "nk225mc";
