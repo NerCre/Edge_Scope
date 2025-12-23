@@ -687,6 +687,7 @@ function onJudge(shouldSave) {
   clearMsg();
   const entry = getEntryForm();
   const err = validateEntryRequired(entry);
+  const wasEditing = !!editingEntryId;
 
   // 「判定する」だけなら、従来どおり上部エラーでOK
   if (!shouldSave) {
@@ -791,9 +792,10 @@ function onJudge(shouldSave) {
   updateExitSelect();
   safeRenderStats();
 
-  editingEntryId = null;
-  if (elEntryError) elEntryError.textContent = "";
-  showToast("保存しました。", "success");
+  const id = editingEntryId || uuid();
+  editingEntryId = id;
+  showToast(wasEditing ? "更新しました。" : "保存しました。", "success");
+  if (elEntryError) elEntryError.textContent = ""; 
 }
 
 
