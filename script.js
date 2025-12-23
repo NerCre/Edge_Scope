@@ -470,6 +470,16 @@ function getEntryForm() {
     clearMsg();
   }
 
+  // 2025-12-23　追加
+  function updateEntryEditUI() {
+    const isEditing = !!editingEntryId;
+    const badge = $("#entry-edit-badge");
+    const saveBtn = $("#btn-save-entry");
+
+    if (badge) badge.hidden = !isEditing;
+    if (saveBtn) saveBtn.textContent = isEditing ? "更新して保存" : "判定してエントリーを保存";
+  }
+
   function renderJudge(result, symbol, timeframe) {
     if (!elJudgeOutput) return;
 
