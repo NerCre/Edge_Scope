@@ -113,6 +113,35 @@ label {
     gap: 6px;              /* ← 「エントリー日時」と「必須」の間隔 */
 }
 
+/* Entry 編集中UI */
+.section-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.section-header h2{
+  margin: 0;
+}
+
+.edit-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid #00ffc8;
+  border-radius: 999px;
+  color: #00ffc8;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.edit-badge::before{
+  content: "●";
+  font-size: 0.7rem;
+}
+
 /* 入力欄だけ次の行に落とす */
 label > input,
 label > select,
