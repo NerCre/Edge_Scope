@@ -460,6 +460,7 @@ function getEntryForm() {
 
 function clearEntryForm() {
     editingEntryId = null;
+    updateEntryEditUI();
     $("#entry-form").reset();
 
     // restore defaults
@@ -802,9 +803,11 @@ function onJudge(shouldSave) {
   updateExitSelect();
   safeRenderStats();
 
-  editingEntryId = null;
+  const wasEditing = !!editingEntryId;
+  const id = editingEntryId || uuid();
+  updateEntryEditUI();
+  showToast(wasEditing ? "更新しました。" : "保存しました。", "success");
   if (elEntryError) elEntryError.textContent = "";
-  showToast("保存しました。", "success");
 }
 
 
