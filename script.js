@@ -180,7 +180,6 @@ function setDefaultStatsRangeLast7Days() {
     out.entryPrice = out.entryPrice ?? null;
     out.size = out.size ?? null;
     out.feePerUnit = out.feePerUnit ?? null;
-    out.plannedStopPrice = out.plannedStopPrice ?? null;
     out.plannedLimitPrice = out.plannedLimitPrice ?? null;
     out.cutLossPrice = out.cutLossPrice ?? null;
 
@@ -409,7 +408,6 @@ function getEntryForm() {
       entryPrice: safeNum($("#entry-price").value),
       size: safeNum($("#entry-size").value),
       feePerUnit: safeNum($("#entry-fee").value),
-      plannedStopPrice: safeNum($("#entry-StopPrice").value),
       plannedLimitPrice: safeNum($("#entry-LimitPrice").value),
       cutLossPrice: safeNum($("#entry-LossPrice").value),
 
@@ -729,7 +727,6 @@ function onJudge(shouldSave) {
     entryPrice: entry.entryPrice,
     size: entry.size,
     feePerUnit: entry.feePerUnit,
-    plannedStopPrice: entry.plannedStopPrice,
     plannedLimitPrice: entry.plannedLimitPrice,
     cutLossPrice: entry.cutLossPrice,
 
@@ -1222,7 +1219,6 @@ function clearDateRangeFilter() {
     $("#entry-size").value = r.size ?? "";
     $("#entry-fee").value = r.feePerUnit ?? "";
 
-    $("#entry-StopPrice").value = r.plannedStopPrice ?? "";
     $("#entry-LimitPrice").value = r.plannedLimitPrice ?? "";
     $("#entry-LossPrice").value = r.cutLossPrice ?? "";
 
@@ -1474,7 +1470,7 @@ function safeRenderStats() {
     const cols = [
       "id","createdAt","updatedAt",
       "datetimeEntry","symbol","timeframe","tradeType","directionPlanned",
-      "entryPrice","size","feePerUnit","plannedStopPrice","plannedLimitPrice","cutLossPrice",
+      "entryPrice","size","feePerUnit","plannedLimitPrice","cutLossPrice",
       "waveCount","dowShape","trend_5_20_40","price_vs_ema200","ema_band_color","zone",
       "cmf_sign","cmf_sma_dir","macd_state","roc_sign","roc_sma_dir","rsi_zone",
       "decisiveIndicator","decisiveSignal","decisiveSignalText",
