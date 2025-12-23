@@ -687,6 +687,7 @@ function onJudge(shouldSave) {
   clearMsg();
   const entry = getEntryForm();
   const err = validateEntryRequired(entry);
+  const wasEditing = !!editingEntryId;
 
   // 「判定する」だけなら、従来どおり上部エラーでOK
   if (!shouldSave) {
@@ -791,9 +792,16 @@ function onJudge(shouldSave) {
   updateExitSelect();
   safeRenderStats();
 
-  editingEntryId = null;
+  if (wasEditing) {
+    editingEntryId = id;
+    $("#entry-form").reset();
+    showToast("更新しました。", "success");
+  } else {
+    editingEntryId = null;
+    $("#entry-form").reset();
+    showToast("保存しました。", "success");
+  }
   if (elEntryError) elEntryError.textContent = "";
-  showToast("保存しました。", "success");
 }
 
 
@@ -950,7 +958,7 @@ function onJudge(shouldSave) {
     if (disp) disp.textContent = "—";
 
     r._tmp = { exitPrice: null, highDuringTrade: null, lowDuringTrade: null, resultMemo: "", profit: null };
-    showError(elExitError, "入力欄をクリアしました（保存はしていません）。");
+    showError(elExitError, "入力欄をクリアしました");
   }
 
   function saveExit() {
