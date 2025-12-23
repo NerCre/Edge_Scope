@@ -697,6 +697,7 @@ function onJudge(shouldSave) {
   clearMsg();
   const entry = getEntryForm();
   const err = validateEntryRequired(entry);
+  // 2025-12-23　追加
   const wasEditing = !!editingEntryId;
 
   // 「判定する」だけなら、従来どおり上部エラーでOK
@@ -802,6 +803,7 @@ function onJudge(shouldSave) {
   updateExitSelect();
   safeRenderStats();
 
+    // 2025-12-23　変更
   const id = editingEntryId || uuid();
   editingEntryId = id;
   showToast(wasEditing ? "更新しました。" : "保存しました。", "success");
