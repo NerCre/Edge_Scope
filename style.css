@@ -113,6 +113,7 @@ label {
     gap: 6px;              /* ← 「エントリー日時」と「必須」の間隔 */
 }
 
+// 2025-12-23　追加
 /* Entry 編集中UI */
 .section-header{
   display: flex;
