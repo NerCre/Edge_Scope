@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdgeScope - Trade Judge &amp; Note</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <h1 class="app-title">
+      EdgeScope
+      <span class="app-subtitle">Trade Judge &amp; Note</span>
+    </h1>
+
+    <div class="tabs">
+      <button class="tab-button active" data-tab="entry">📥 entry</button>
+      <button class="tab-button" data-tab="exit">✅ exit</button>
+      <button class="tab-button" data-tab="stats">📊 Stats</button>
+    </div>
+
+    <!-- Entry Tab -->
+    <section id="tab-entry" class="tab-content active">
+      <h2 class="section-title">エントリー入力</h2>
+      <div class="entry-grid">
+        <!-- Entry Basic Information -->
+        <div class="entry-basic card">
+          <h3>エントリー情報</h3>
+          <div class="form-group">
+            <label for="datetimeEntry">日時</label>
+            <input type="datetime-local" id="datetimeEntry">
+          </div>
+          <div class="form-group">
+            <label for="symbol">銘柄</label>
+            <select id="symbol">
+              <option value="nk225mc">nk225mc</option>
+              <option value="nk225m">nk225m</option>
+              <option value="nk225">nk225</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="timeframe">時間足</label>
+            <select id="timeframe">
+              <option value="1分">1分</option>
+              <option value="5分">5分</option>
+              <option value="15分">15分</option>
+              <option value="30分">30分</option>
+              <option value="1時間">1時間</option>
+              <option value="日足">日足</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tradeType">取引区分</label>
+            <select id="tradeType">
+              <option value="real">リアル</option>
+              <option value="virtual">バーチャル</option>
+              <option value="practice">プラクティス</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="directionPlanned">エントリー方向</label>
+            <select id="directionPlanned">
+              <option value="long">ロング</option>
+              <option value="short">ショート</option>
+              <option value="flat">ノーポジ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="entryPrice">エントリー価格</label>
+            <input type="number" id="entryPrice" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="size">枚数</label>
+            <input type="number" id="size" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="feePerUnit">1枚あたりの手数料</label>
+            <input type="number" id="feePerUnit" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="plannedStopPrice">想定ストップ価格</label>
+            <input type="number" id="plannedStopPrice" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="plannedLimitPrice">指値価格</label>
+            <input type="number" id="plannedLimitPrice" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="cutLossPrice">ロスカット価格</label>
+            <input type="number" id="cutLossPrice" inputmode="decimal">
+          </div>
+        </div>
+
+        <!-- Indicators -->
+        <div class="entry-indicators card">
+          <h3>インジケーター</h3>
+          <div class="form-group">
+            <label for="prevWave">直前の波</label>
+            <select id="prevWave">
+              <option value="HH">HH</option>
+              <option value="HL">HL</option>
+              <option value="LL">LL</option>
+              <option value="LH">LH</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="trend_5_20_40">EMA5/20/40トレンド</label>
+            <select id="trend_5_20_40">
+              <option value="Stage1">Stage1</option>
+              <option value="Stage2">Stage2</option>
+              <option value="Stage3">Stage3</option>
+              <option value="Stage4">Stage4</option>
+              <option value="Stage5">Stage5</option>
+              <option value="Stage6">Stage6</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="price_vs_ema200">価格 vs EMA200</label>
+            <select id="price_vs_ema200">
+              <option value="above">価格はEMA200より上</option>
+              <option value="below">価格はEMA200より下</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ema_band_color">EMA Band</label>
+            <select id="ema_band_color">
+              <option value="dark_green">濃緑</option>
+              <option value="light_green">薄緑</option>
+              <option value="neutral">0付近</option>
+              <option value="light_red">薄赤</option>
+              <option value="dark_red">濃赤</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="zone">Pivot×ATRゾーン</label>
+            <select id="zone">
+              <option value="pivot">pivot</option>
+              <option value="pivot_R1">pivot〜R1</option>
+              <option value="R1">R1</option>
+              <option value="R1_R2">R1〜R2</option>
+              <option value="R2">R2</option>
+              <option value="R2_HBOP">R2〜HBOP</option>
+              <option value="HBOP">HBOP</option>
+              <option value="over_HBOP">HBOP以上</option>
+              <option value="pivot_S1">pivot〜S1</option>
+              <option value="S1">S1</option>
+              <option value="S1_S2">S1〜S2</option>
+              <option value="S2">S2</option>
+              <option value="S2_LBOP">S2〜LBOP</option>
+              <option value="LBOP">LBOP</option>
+              <option value="under_LBOP">LBOP以下</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cmf_sign">CMF圏域</label>
+            <select id="cmf_sign">
+              <option value="positive">プラス圏</option>
+              <option value="near_zero">ゼロ付近</option>
+              <option value="negative">マイナス圏</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cmf_sma_dir">CMF SMA方向</label>
+            <select id="cmf_sma_dir">
+              <option value="gc">GC</option>
+              <option value="up">上昇</option>
+              <option value="flat">横ばい</option>
+              <option value="down">下降</option>
+              <option value="dc">DC</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="macd_state">MACD状態</label>
+            <select id="macd_state">
+              <option value="post_gc">GC後</option>
+              <option value="post_dc">DC後</option>
+              <option value="neutral">その他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="roc_sign">ROC圏域</label>
+            <select id="roc_sign">
+              <option value="positive">プラス圏</option>
+              <option value="near_zero">ゼロ付近</option>
+              <option value="negative">マイナス圏</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="roc_sma_dir">ROC SMA方向</label>
+            <select id="roc_sma_dir">
+              <option value="up">上昇</option>
+              <option value="flat">横ばい</option>
+              <option value="down">下降</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rsi_zone">RSIゾーン</label>
+            <select id="rsi_zone">
+              <option value="over70">70〜</option>
+              <option value="50to70">50〜70</option>
+              <option value="around50">50付近</option>
+              <option value="30to50">30〜50</option>
+              <option value="under30">0〜30</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="minWinRate">最低勝率 (%)</label>
+            <input type="number" id="minWinRate" inputmode="decimal" placeholder="例: 20">
+          </div>
+        </div>
+
+        <!-- Memo & Image -->
+        <div class="entry-memo card">
+          <h3>メモ・リンク・画像</h3>
+          <div class="form-group">
+            <label for="marketMemo">相場状況メモ</label>
+            <textarea id="marketMemo" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="notionUrl">Notion URL</label>
+            <input type="text" id="notionUrl">
+          </div>
+          <div class="form-group">
+            <label for="imageInput">画像添付</label>
+            <input type="file" id="imageInput" accept="image/*">
+          </div>
+          <div class="image-preview" id="imagePreview"></div>
+        </div>
+      </div>
+      <div class="entry-actions button-row">
+        <button id="btn-judge" class="primary">判定する</button>
+        <button id="btn-judge-save" class="primary">判定してエントリーを保存</button>
+        <button id="btn-entry-clear" class="secondary">このエントリー入力をクリア</button>
+      </div>
+      <div class="judge-result card">
+        <h3>判定結果</h3>
+        <div id="judge-output" class="judge-output"></div>
+      </div>
+    </section>
+
+    <!-- Exit Tab -->
+    <section id="tab-exit" class="tab-content">
+      <h2 class="section-title">結果入力</h2>
+      <div class="result-grid">
+        <div class="result-list card">
+          <h3>エントリー一覧</h3>
+          <div class="form-group">
+            <label><input type="checkbox" id="filter-unresolved"> 未決済のみを表示</label>
+          </div>
+          <ul id="record-list" class="record-list"></ul>
+        </div>
+        <div class="result-form card">
+          <h3>結果入力</h3>
+          <div class="form-group">
+            <label for="datetimeExit">決済日時</label>
+            <input type="datetime-local" id="datetimeExit">
+          </div>
+          <div class="form-group">
+            <label for="exitPrice">実際の決済価格</label>
+            <input type="number" id="exitPrice" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label>エントリー方向</label>
+            <div id="displayDirection"></div>
+          </div>
+          <div class="form-group">
+            <label>枚数</label>
+            <div id="displaySize"></div>
+          </div>
+          <div class="form-group">
+            <label>1枚あたりの手数料</label>
+            <div id="displayFee"></div>
+          </div>
+          <div class="form-group">
+            <label for="highDuringTrade">トレード中の最高値</label>
+            <input type="number" id="highDuringTrade" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="lowDuringTrade">トレード中の最安値</label>
+            <input type="number" id="lowDuringTrade" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="resultMemo">メモ</label>
+            <textarea id="resultMemo" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>損益</label>
+            <div id="displayProfit"></div>
+          </div>
+          <div class="button-row">
+            <button id="btn-save-result" class="primary">結果を保存</button>
+            <button id="btn-exit-clear" class="secondary">この結果入力をクリア</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Tab -->
+    <section id="tab-stats" class="tab-content">
+      <h2 class="section-title">一覧・分析・統計</h2>
+      <div class="stats-filter card">
+        <h3>フィルタ</h3>
+        <div class="filter-grid">
+          <div class="form-group">
+            <label for="filterSymbol">銘柄</label>
+            <select id="filterSymbol">
+              <option value="all">すべて</option>
+              <option value="nk225mc">nk225mc</option>
+              <option value="nk225m">nk225m</option>
+              <option value="nk225">nk225</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterTradeType">取引区分</label>
+            <select id="filterTradeType">
+              <option value="all">すべて</option>
+              <option value="real">リアル</option>
+              <option value="virtual">バーチャル</option>
+              <option value="practice">プラクティス</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterDirection">結果方向</label>
+            <select id="filterDirection">
+              <option value="all">すべて</option>
+              <option value="long">ロング</option>
+              <option value="short">ショート</option>
+              <option value="flat">ノーポジ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterStartDate">開始日</label>
+            <input type="date" id="filterStartDate">
+          </div>
+          <div class="form-group">
+            <label for="filterEndDate">終了日</label>
+            <input type="date" id="filterEndDate">
+          </div>
+          <div class="form-group">
+            <button id="btn-apply-filter" class="primary">フィルタ適用</button>
+          </div>
+        </div>
+      </div>
+      <div class="stats-table card">
+        <h3>トレード一覧</h3>
+        <table id="stats-table">
+          <thead>
+            <tr>
+              <th>日時</th>
+              <th>銘柄</th>
+              <th>時間足</th>
+              <th>取引区分</th>
+              <th>エントリー方向</th>
+              <th>結果方向</th>
+              <th>損益</th>
+              <th>推奨</th>
+              <th>完了</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="stats-table-body"></tbody>
+        </table>
+      </div>
+      <div class="charts-column">
+        <div class="card">
+          <h3>累積損益</h3>
+          <canvas id="chart-cumulative" height="200"></canvas>
+        </div>
+        <div class="card">
+          <h3>方向別勝率＆平均損益</h3>
+          <canvas id="chart-direction" height="200"></canvas>
+        </div>
+        <div class="card">
+          <h3>時間足別勝率</h3>
+          <canvas id="chart-timeframe" height="200"></canvas>
+        </div>
+      </div>
+      <div class="button-row">
+        <button id="btn-export" class="primary">JSONエクスポート</button>
+        <input type="file" id="import-file" accept=".json" style="display:none">
+        <button id="btn-import" class="secondary">JSONインポート</button>
+      </div>
+    </section>
+
+    <footer class="app-disclaimer">
+      本アプリの判定結果・分析結果は、過去データ等に基づく参考情報であり、
+      将来の収益や損失の発生について何ら保証するものではありません。
+      すべての投資判断・トレード判断はご自身の責任において行ってください。
+      本アプリの制作者および公開者は、本アプリの利用により生じたいかなる損失についても一切の責任を負いません。
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
